@@ -1,0 +1,26 @@
+service SafeEntry {
+
+    rpc CheckIn (CheckInRequest) returns (CheckInReply) {}
+    rpc CheckOut (CheckOutRequest) returns (CheckOutReply) {}
+
+}
+
+message CheckInRequest {
+    string nric = 1;
+    string location = 1;
+    string checkin = 1;
+}
+
+message CheckInReply {
+    string message = 1;
+}
+
+message CheckOutRequest {
+    string nric = 1;
+    string location = 1;
+    string checkout = 1;
+}
+
+message CheckOutReply {
+    string message = 1;
+}
