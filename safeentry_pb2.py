@@ -14,12 +14,14 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsafeentry.proto\"A\n\x0e\x43heckInRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x03 \x01(\t\"\x1f\n\x0c\x43heckInReply\x12\x0f\n\x07message\x18\x01 \x01(\t28\n\tSafeEntry\x12+\n\x07\x43heckIn\x12\x0f.CheckInRequest\x1a\r.CheckInReply\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsafeentry.proto\"A\n\x0e\x43heckInRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x03 \x01(\t\"\x1f\n\x0c\x43heckInReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"1\n\x0f\x43heckOutRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\x12\x10\n\x08\x63heckout\x18\x02 \x01(\t\" \n\rCheckOutReply\x12\x0f\n\x07message\x18\x01 \x01(\t2h\n\tSafeEntry\x12+\n\x07\x43heckIn\x12\x0f.CheckInRequest\x1a\r.CheckInReply\"\x00\x12.\n\x08\x43heckOut\x12\x10.CheckOutRequest\x1a\x0e.CheckOutReply\"\x00\x62\x06proto3')
 
 
 
 _CHECKINREQUEST = DESCRIPTOR.message_types_by_name['CheckInRequest']
 _CHECKINREPLY = DESCRIPTOR.message_types_by_name['CheckInReply']
+_CHECKOUTREQUEST = DESCRIPTOR.message_types_by_name['CheckOutRequest']
+_CHECKOUTREPLY = DESCRIPTOR.message_types_by_name['CheckOutReply']
 CheckInRequest = _reflection.GeneratedProtocolMessageType('CheckInRequest', (_message.Message,), {
   'DESCRIPTOR' : _CHECKINREQUEST,
   '__module__' : 'safeentry_pb2'
@@ -34,6 +36,20 @@ CheckInReply = _reflection.GeneratedProtocolMessageType('CheckInReply', (_messag
   })
 _sym_db.RegisterMessage(CheckInReply)
 
+CheckOutRequest = _reflection.GeneratedProtocolMessageType('CheckOutRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CHECKOUTREQUEST,
+  '__module__' : 'safeentry_pb2'
+  # @@protoc_insertion_point(class_scope:CheckOutRequest)
+  })
+_sym_db.RegisterMessage(CheckOutRequest)
+
+CheckOutReply = _reflection.GeneratedProtocolMessageType('CheckOutReply', (_message.Message,), {
+  'DESCRIPTOR' : _CHECKOUTREPLY,
+  '__module__' : 'safeentry_pb2'
+  # @@protoc_insertion_point(class_scope:CheckOutReply)
+  })
+_sym_db.RegisterMessage(CheckOutReply)
+
 _SAFEENTRY = DESCRIPTOR.services_by_name['SafeEntry']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
@@ -42,6 +58,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CHECKINREQUEST._serialized_end=84
   _CHECKINREPLY._serialized_start=86
   _CHECKINREPLY._serialized_end=117
-  _SAFEENTRY._serialized_start=119
-  _SAFEENTRY._serialized_end=175
+  _CHECKOUTREQUEST._serialized_start=119
+  _CHECKOUTREQUEST._serialized_end=168
+  _CHECKOUTREPLY._serialized_start=170
+  _CHECKOUTREPLY._serialized_end=202
+  _SAFEENTRY._serialized_start=204
+  _SAFEENTRY._serialized_end=308
 # @@protoc_insertion_point(module_scope)

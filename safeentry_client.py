@@ -4,14 +4,29 @@ import grpc
 import safeentry_pb2
 import safeentry_pb2_grpc
 
-def checkin():
+'''Function to log a checkin to server
+Args: NRIC, building name, checkin datetime
+Returns: Success/Failure message'''
+def checkin(nric, location, checkin):
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = safeentry_pb2_grpc.SafeEntryStub(channel)
         
-        now = datetime.now()
-        response = stub.CheckIn(safeentry_pb2.CheckInRequest(nric="S1234567A", location="NYP", checkin=now.strftime("%H:%M:%S")))
+        response = stub.CheckIn(safeentry_pb2.CheckInRequest(nric=nric, location=location, checkin=checkin))
         print(response.message)
 
+'''Function to log a checkout from existing location to server
+Args: NRIC, checkout datetime
+Returns: Success/Failure message'''
+def checkout(nric, checkout):
+    with grpc.insecure_channel('localhost:50051') as channel:
+        stub = safeentry_pb2_grpc.SafeEntryStub(channel)
+        
+        response = stub.CheckOut(safeentry_pb2.CheckOutRequest(nric=nric, checkout=checkout))
+        print(response.message)
 
 if __name__ == "__main__":
-    checkin()
+    now = datetime.now()
+    checkin("S1234567A", "NYP", now.strftime("%H:%M:%S"))
+
+    now = datetime.now()
+    checkout("S1234567A", now.strftime("%H:%M:%S"))
