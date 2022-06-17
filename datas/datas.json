@@ -1,1 +1,20 @@
-{"S1234567A": [{"location": "NYP", "checkInDateTime": "15:05:55"}]}
+{
+  "S1234567A": [
+    {
+      "location": "NYP",
+      "checkInDateTime": "15:11:36"
+    }
+  ],
+  "S000000B": [
+    {
+      "location": "RP",
+      "checkInDateTime": "15:51:31"
+    }
+  ],
+  "S98765431K": [
+    {
+      "location": "SP",
+      "checkInDateTime": "15:52:08"
+    }
+  ]
+}

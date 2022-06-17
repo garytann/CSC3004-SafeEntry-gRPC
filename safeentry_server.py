@@ -34,6 +34,10 @@ def serve():
 
 
 def addData(nric, location, dateTime):
+
+    with open("datas/datas.json", "r") as f:
+        file = json.load(f)
+
     datas = {
         nric: [
             {
@@ -43,9 +47,10 @@ def addData(nric, location, dateTime):
         ]
     }
 
-    with open("datas/datas.json", "a") as out:
-        json.dump(datas, out)
+    file.update(datas)
 
+    with open("datas/datas.json", "w") as out:
+        json.dump(file, out)
 
 if __name__ == '__main__':
     logging.basicConfig()
