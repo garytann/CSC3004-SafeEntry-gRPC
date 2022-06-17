@@ -38,12 +38,12 @@ def addData(nric, location, dateTime):
         nric: [
             {
                 "location": location,
-                "checkInDateTime": dateTime.strftime("%H:%M:%S"),
+                "checkInDateTime": dateTime
             }
         ]
     }
 
-    with open("datas/datas.json", "w") as out:
+    with open("datas/datas.json", "a") as out:
         json.dump(datas, out)
 
 
