@@ -49,8 +49,10 @@ def addData(nric, location, dateTime):
 
     file.update(datas)
 
+    json_obj = json.dumps(file, indent=4)
+
     with open("datas/datas.json", "w") as out:
-        json.dump(file, out)
+        out.write(json_obj)
 
 if __name__ == '__main__':
     logging.basicConfig()

@@ -26,7 +26,7 @@ def checkout(nric, checkout):
 
 if __name__ == "__main__":
     now = datetime.now()
-    checkin("S98765431K", "SP", now.strftime("%H:%M:%S"))
+    checkin("S087896T", "SIT", now.strftime("%H:%M:%S"))
 
     now = datetime.now()
     checkout("S1234567A", now.strftime("%H:%M:%S"))
