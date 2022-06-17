@@ -34,7 +34,6 @@ def serve():
 
 
 def addData(nric, location, dateTime):
-    dateTime = datetime.now()
     datas = {
         nric: [
             {
