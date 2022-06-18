@@ -17,22 +17,22 @@ class SafeEntryStub(object):
         self.CheckIn = channel.unary_unary(
                 '/SafeEntry/CheckIn',
                 request_serializer=safeentry__pb2.CheckInRequest.SerializeToString,
-                response_deserializer=safeentry__pb2.CheckInReply.FromString,
+                response_deserializer=safeentry__pb2.CheckInOutReply.FromString,
                 )
         self.CheckOut = channel.unary_unary(
                 '/SafeEntry/CheckOut',
                 request_serializer=safeentry__pb2.CheckOutRequest.SerializeToString,
-                response_deserializer=safeentry__pb2.CheckOutReply.FromString,
+                response_deserializer=safeentry__pb2.CheckInOutReply.FromString,
                 )
         self.CheckInGroup = channel.unary_unary(
                 '/SafeEntry/CheckInGroup',
                 request_serializer=safeentry__pb2.GroupInRequest.SerializeToString,
-                response_deserializer=safeentry__pb2.CheckInReply.FromString,
+                response_deserializer=safeentry__pb2.CheckInOutReply.FromString,
                 )
         self.CheckOutGroup = channel.unary_unary(
                 '/SafeEntry/CheckOutGroup',
                 request_serializer=safeentry__pb2.GroupOutRequest.SerializeToString,
-                response_deserializer=safeentry__pb2.CheckOutReply.FromString,
+                response_deserializer=safeentry__pb2.CheckInOutReply.FromString,
                 )
 
 
@@ -69,22 +69,22 @@ def add_SafeEntryServicer_to_server(servicer, server):
             'CheckIn': grpc.unary_unary_rpc_method_handler(
                     servicer.CheckIn,
                     request_deserializer=safeentry__pb2.CheckInRequest.FromString,
-                    response_serializer=safeentry__pb2.CheckInReply.SerializeToString,
+                    response_serializer=safeentry__pb2.CheckInOutReply.SerializeToString,
             ),
             'CheckOut': grpc.unary_unary_rpc_method_handler(
                     servicer.CheckOut,
                     request_deserializer=safeentry__pb2.CheckOutRequest.FromString,
-                    response_serializer=safeentry__pb2.CheckOutReply.SerializeToString,
+                    response_serializer=safeentry__pb2.CheckInOutReply.SerializeToString,
             ),
             'CheckInGroup': grpc.unary_unary_rpc_method_handler(
                     servicer.CheckInGroup,
                     request_deserializer=safeentry__pb2.GroupInRequest.FromString,
-                    response_serializer=safeentry__pb2.CheckInReply.SerializeToString,
+                    response_serializer=safeentry__pb2.CheckInOutReply.SerializeToString,
             ),
             'CheckOutGroup': grpc.unary_unary_rpc_method_handler(
                     servicer.CheckOutGroup,
                     request_deserializer=safeentry__pb2.GroupOutRequest.FromString,
-                    response_serializer=safeentry__pb2.CheckOutReply.SerializeToString,
+                    response_serializer=safeentry__pb2.CheckInOutReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -109,7 +109,7 @@ class SafeEntry(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckIn',
             safeentry__pb2.CheckInRequest.SerializeToString,
-            safeentry__pb2.CheckInReply.FromString,
+            safeentry__pb2.CheckInOutReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -126,7 +126,7 @@ class SafeEntry(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckOut',
             safeentry__pb2.CheckOutRequest.SerializeToString,
-            safeentry__pb2.CheckOutReply.FromString,
+            safeentry__pb2.CheckInOutReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -143,7 +143,7 @@ class SafeEntry(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckInGroup',
             safeentry__pb2.GroupInRequest.SerializeToString,
-            safeentry__pb2.CheckInReply.FromString,
+            safeentry__pb2.CheckInOutReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -160,6 +160,6 @@ class SafeEntry(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckOutGroup',
             safeentry__pb2.GroupOutRequest.SerializeToString,
-            safeentry__pb2.CheckOutReply.FromString,
+            safeentry__pb2.CheckInOutReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

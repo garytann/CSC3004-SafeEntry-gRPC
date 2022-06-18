@@ -33,7 +33,22 @@ def checkin_group(stub, nameList: list, nricList: list, location, checkin):
         print("Input must be lists")
         return
 
+    # Also check if there are more ICs or names than the other
+    if len(nameList) != len(nricList):
+        print("Failure")
+        print("Number of names and NRIC do not match")
+        return
+
     response = stub.CheckInGroup(safeentry_pb2.GroupInRequest(name=nameList, nric=nricList, location=location, checkin=checkin))
+    print(response.message)
+
+def checkout_group(stub, nricList: list, checkout):
+    if type(nricList) != list:
+        print("Failure")
+        print("Input must be a list")
+        return
+
+    response = stub.CheckOutGroup(safeentry_pb2.GroupOutRequest(nric=nricList, checkout=checkout))
     print(response.message)
 
 ########################
@@ -62,4 +77,6 @@ if __name__ == "__main__":
         testgroup = ["S1", "S2"]
         testnames = ["A", "B"]
 
-        checkin_group(stub, "A", "S1", "SIT", get_current_datetime())
+        # checkin_group(stub, "A", "S1", "SIT", get_current_datetime())
+
+        checkout_group(stub, ["S1"], get_current_datetime())

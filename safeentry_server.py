@@ -17,23 +17,30 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
         print(request.nric, request.location)
         #TODO Add name as well into JSON
         addData(request.nric, request.location, request.checkin)
-        return safeentry_pb2.CheckInReply(message="Success")
+        return safeentry_pb2.CheckInOutReply(message="Success")
 
     '''Function to take user checkin info
     Returns a CheckOutReply with success or failure'''
     def CheckOut(self, request, context):
         print(request.nric, request.checkout)
         updateData(request.nric, request.checkout)
-        return safeentry_pb2.CheckOutReply(message="Success")
+        return safeentry_pb2.CheckInOutReply(message="Success")
 
     '''Function to take checkin info of groups
     Returns a CheckInReply with success or failure'''
     def CheckInGroup(self, request, context):
         #request.nric and request.name are lists
-        print(len(request.nric))
         for ic in request.nric:
             print(ic)
-        return safeentry_pb2.CheckInReply(message="Success")
+        return safeentry_pb2.CheckInOutReply(message="Success")
+
+    '''Function to checkout groups
+    Returns a CheckOutReply with success or failure'''
+    def CheckOutGroup(self, request, context):
+        #request.nric is a list
+        for ic in request.nric:
+            print(ic)
+        return safeentry_pb2.CheckInOutReply(message="Success")
 
 
 def serve():
