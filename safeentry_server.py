@@ -1,4 +1,5 @@
 from concurrent import futures
+from email import message
 import logging
 
 import grpc
@@ -12,11 +13,9 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     
     '''Function to take user checkin info
     Returns a CheckInReply with success or failure'''
-    #TODO Ensure IC is 9 digits and starts with 'S' or 'T' and ends with letter
     def CheckIn(self, request, context):
         print(request.nric, request.location)
-        #TODO Add name as well into JSON
-        addData(request.nric, request.location, request.checkin)
+        addData(request.name, request.nric, request.location, request.checkin)
         return safeentry_pb2.CheckInOutReply(message="Success")
 
     '''Function to take user checkin info
@@ -51,6 +50,10 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
         locations = ["SP", "NYP", "Tekong"]
         return safeentry_pb2.HistoryReply(locations=locations)
 
+    def FlagLocation(self, request, context):
+        #TODO JSON logic to add location into location.json
+        return safeentry_pb2.FlagReply(message="Added!")
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -63,13 +66,14 @@ def serve():
 ### JSON FUNCTIONS ###
 ######################
 
-def addData(nric, location, dateTime):
+def addData(name, nric, location, dateTime):
     with open("datas/datas.json", "r") as f:
         file = json.load(f)
 
     datas = {
         nric: [
             {
+                "name": name,
                 "location": location,
                 "checkInDateTime": dateTime,
                 "checkOutDateTime": ""

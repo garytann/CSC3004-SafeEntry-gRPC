@@ -12,7 +12,6 @@ import safeentry_pb2_grpc
 '''Function to log a checkin to server
 Args: gRPC stub and variables to pass to server: user name, NRIC, building name, checkin datetime'''
 def checkin(stub, name, nric, location, checkin):
-
     response = stub.CheckIn(safeentry_pb2.CheckInRequest(name=name, nric=nric, location=location, checkin=checkin))
     print(response.message)
 
@@ -20,7 +19,6 @@ def checkin(stub, name, nric, location, checkin):
 Checkout doesn't need name, just needs NRIC to find user in database
 Args: gRPC stub and variables to pass to server: NRIC, checkout datetime'''
 def checkout(stub, nric, checkout):
-      
     response = stub.CheckOut(safeentry_pb2.CheckOutRequest(nric=nric, checkout=checkout))
     print(response.message)
 
@@ -64,6 +62,14 @@ def get_history(stub, nric):
     for location in response.locations:
         print(location)
 
+'''Function to add location to list of infected locations
+Args: gRPC stub and variables to pass to server: location'''
+def flag_location(stub, location):
+    response = stub.FlagLocation(safeentry_pb2.FlagRequest(location=location))
+
+    print(response.message)
+
+
 ########################
 ### PYTHON FUNCTIONS ###
 ########################
@@ -77,11 +83,12 @@ def get_current_datetime():
 
 if __name__ == "__main__":
 
-
     #Establishing channels and stubs before every function incurs overhead
     #So establish once here and reuse
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = safeentry_pb2_grpc.SafeEntryStub(channel)
+
+        #TODO check NRIC
 
         # checkin(stub, "TJ", "S087896T", "SIT", get_current_datetime())
 
