@@ -80,6 +80,7 @@ Requirement: within the past 14 days
 
 def check_cases(stub,nric):
     response = stub.CheckCases(safeentry_pb2.LocationCheck(nric=nric))
+    print(response.locationList)
 
 
 '''Function to add location to list of infected locations

@@ -12,6 +12,7 @@ from datetime import date, timedelta, datetime
 class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     '''Function to take user checkin info
     Returns a CheckInReply with success or failure'''
+
     def CheckIn(self, request, context):
         print(request.nric, request.location)
         addData(request.name, request.nric, request.location, request.checkin)
@@ -54,11 +55,10 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
         return safeentry_pb2.HistoryReply(locations=locations)
 
     def CheckCases(self, request, context):
-        getCases(request.nric, getLocation())
-        return safeentry_pb2.LocationReply(location=getCases())
+        return safeentry_pb2.LocationReply(locationList=getCases(request.nric, getLocation()))
 
     def FlagLocation(self, request, context):
-        #TODO JSON logic to add location into location.json
+        # TODO JSON logic to add location into location.json
         return safeentry_pb2.FlagReply(message="Added!")
 
 
@@ -141,17 +141,20 @@ def getCases(nric, infectedLocation: list):
     with open("datas/datas.json", 'r') as f:
         file = json.load(f)
 
-    nric = file[nric]
-    for j in nric:
-        locations = nric[j]["Location"]
-        locationDateTime = nric[j]["checkInDateTime"]
-        locationDateTime = datetime.strptime(locationDateTime, '%d/%m/%Y')
+    visitedLocation = file[nric]
+    print(visitedLocation)
+    for j in visitedLocation:
+        locations = j["location"]
+        locationDateTime = j["checkInDateTime"]
+        locationDateTime = datetime.strptime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
 
         if locationDateTime > cur and locations in infectedLocation:
-            LocationList.append(locations, locationDateTime)
+            locationDateTime = datetime.strftime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
+            LocationList.append(locations)
+            LocationList.append(locationDateTime)
         # TODO add the nric and locations into a key value pair?
 
-
+    print(LocationList)
     return LocationList
 
 
