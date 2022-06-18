@@ -15,6 +15,7 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     #TODO Ensure IC is 9 digits and starts with 'S' or 'T' and ends with letter
     def CheckIn(self, request, context):
         print(request.nric, request.location)
+        #TODO Add name as well into JSON
         addData(request.nric, request.location, request.checkin)
         return safeentry_pb2.CheckInReply(message="Success")
 

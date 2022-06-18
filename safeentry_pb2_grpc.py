@@ -24,6 +24,16 @@ class SafeEntryStub(object):
                 request_serializer=safeentry__pb2.CheckOutRequest.SerializeToString,
                 response_deserializer=safeentry__pb2.CheckOutReply.FromString,
                 )
+        self.CheckInGroup = channel.unary_unary(
+                '/SafeEntry/CheckInGroup',
+                request_serializer=safeentry__pb2.GroupInRequest.SerializeToString,
+                response_deserializer=safeentry__pb2.CheckInReply.FromString,
+                )
+        self.CheckOutGroup = channel.unary_unary(
+                '/SafeEntry/CheckOutGroup',
+                request_serializer=safeentry__pb2.GroupOutRequest.SerializeToString,
+                response_deserializer=safeentry__pb2.CheckOutReply.FromString,
+                )
 
 
 class SafeEntryServicer(object):
@@ -41,6 +51,18 @@ class SafeEntryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CheckInGroup(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CheckOutGroup(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SafeEntryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -52,6 +74,16 @@ def add_SafeEntryServicer_to_server(servicer, server):
             'CheckOut': grpc.unary_unary_rpc_method_handler(
                     servicer.CheckOut,
                     request_deserializer=safeentry__pb2.CheckOutRequest.FromString,
+                    response_serializer=safeentry__pb2.CheckOutReply.SerializeToString,
+            ),
+            'CheckInGroup': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckInGroup,
+                    request_deserializer=safeentry__pb2.GroupInRequest.FromString,
+                    response_serializer=safeentry__pb2.CheckInReply.SerializeToString,
+            ),
+            'CheckOutGroup': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckOutGroup,
+                    request_deserializer=safeentry__pb2.GroupOutRequest.FromString,
                     response_serializer=safeentry__pb2.CheckOutReply.SerializeToString,
             ),
     }
@@ -94,6 +126,40 @@ class SafeEntry(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckOut',
             safeentry__pb2.CheckOutRequest.SerializeToString,
+            safeentry__pb2.CheckOutReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CheckInGroup(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckInGroup',
+            safeentry__pb2.GroupInRequest.SerializeToString,
+            safeentry__pb2.CheckInReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CheckOutGroup(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckOutGroup',
+            safeentry__pb2.GroupOutRequest.SerializeToString,
             safeentry__pb2.CheckOutReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

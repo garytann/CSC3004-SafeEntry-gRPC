@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsafeentry.proto\"A\n\x0e\x43heckInRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x03 \x01(\t\"\x1f\n\x0c\x43heckInReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"1\n\x0f\x43heckOutRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\x12\x10\n\x08\x63heckout\x18\x02 \x01(\t\" \n\rCheckOutReply\x12\x0f\n\x07message\x18\x01 \x01(\t2h\n\tSafeEntry\x12+\n\x07\x43heckIn\x12\x0f.CheckInRequest\x1a\r.CheckInReply\"\x00\x12.\n\x08\x43heckOut\x12\x10.CheckOutRequest\x1a\x0e.CheckOutReply\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsafeentry.proto\"O\n\x0e\x43heckInRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04nric\x18\x02 \x01(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"\x1f\n\x0c\x43heckInReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"?\n\x0f\x43heckOutRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04nric\x18\x02 \x01(\t\x12\x10\n\x08\x63heckout\x18\x03 \x01(\t\" \n\rCheckOutReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"O\n\x0eGroupInRequest\x12\x0c\n\x04name\x18\x01 \x03(\t\x12\x0c\n\x04nric\x18\x02 \x03(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"?\n\x0fGroupOutRequest\x12\x0c\n\x04name\x18\x01 \x03(\t\x12\x0c\n\x04nric\x18\x02 \x03(\t\x12\x10\n\x08\x63heckout\x18\x04 \x01(\t2\xcf\x01\n\tSafeEntry\x12+\n\x07\x43heckIn\x12\x0f.CheckInRequest\x1a\r.CheckInReply\"\x00\x12.\n\x08\x43heckOut\x12\x10.CheckOutRequest\x1a\x0e.CheckOutReply\"\x00\x12\x30\n\x0c\x43heckInGroup\x12\x0f.GroupInRequest\x1a\r.CheckInReply\"\x00\x12\x33\n\rCheckOutGroup\x12\x10.GroupOutRequest\x1a\x0e.CheckOutReply\"\x00\x62\x06proto3')
 
 
 
@@ -22,6 +22,8 @@ _CHECKINREQUEST = DESCRIPTOR.message_types_by_name['CheckInRequest']
 _CHECKINREPLY = DESCRIPTOR.message_types_by_name['CheckInReply']
 _CHECKOUTREQUEST = DESCRIPTOR.message_types_by_name['CheckOutRequest']
 _CHECKOUTREPLY = DESCRIPTOR.message_types_by_name['CheckOutReply']
+_GROUPINREQUEST = DESCRIPTOR.message_types_by_name['GroupInRequest']
+_GROUPOUTREQUEST = DESCRIPTOR.message_types_by_name['GroupOutRequest']
 CheckInRequest = _reflection.GeneratedProtocolMessageType('CheckInRequest', (_message.Message,), {
   'DESCRIPTOR' : _CHECKINREQUEST,
   '__module__' : 'safeentry_pb2'
@@ -50,18 +52,36 @@ CheckOutReply = _reflection.GeneratedProtocolMessageType('CheckOutReply', (_mess
   })
 _sym_db.RegisterMessage(CheckOutReply)
 
+GroupInRequest = _reflection.GeneratedProtocolMessageType('GroupInRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GROUPINREQUEST,
+  '__module__' : 'safeentry_pb2'
+  # @@protoc_insertion_point(class_scope:GroupInRequest)
+  })
+_sym_db.RegisterMessage(GroupInRequest)
+
+GroupOutRequest = _reflection.GeneratedProtocolMessageType('GroupOutRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GROUPOUTREQUEST,
+  '__module__' : 'safeentry_pb2'
+  # @@protoc_insertion_point(class_scope:GroupOutRequest)
+  })
+_sym_db.RegisterMessage(GroupOutRequest)
+
 _SAFEENTRY = DESCRIPTOR.services_by_name['SafeEntry']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   _CHECKINREQUEST._serialized_start=19
-  _CHECKINREQUEST._serialized_end=84
-  _CHECKINREPLY._serialized_start=86
-  _CHECKINREPLY._serialized_end=117
-  _CHECKOUTREQUEST._serialized_start=119
-  _CHECKOUTREQUEST._serialized_end=168
-  _CHECKOUTREPLY._serialized_start=170
-  _CHECKOUTREPLY._serialized_end=202
-  _SAFEENTRY._serialized_start=204
-  _SAFEENTRY._serialized_end=308
+  _CHECKINREQUEST._serialized_end=98
+  _CHECKINREPLY._serialized_start=100
+  _CHECKINREPLY._serialized_end=131
+  _CHECKOUTREQUEST._serialized_start=133
+  _CHECKOUTREQUEST._serialized_end=196
+  _CHECKOUTREPLY._serialized_start=198
+  _CHECKOUTREPLY._serialized_end=230
+  _GROUPINREQUEST._serialized_start=232
+  _GROUPINREQUEST._serialized_end=311
+  _GROUPOUTREQUEST._serialized_start=313
+  _GROUPOUTREQUEST._serialized_end=376
+  _SAFEENTRY._serialized_start=379
+  _SAFEENTRY._serialized_end=586
 # @@protoc_insertion_point(module_scope)
