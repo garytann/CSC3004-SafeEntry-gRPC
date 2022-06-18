@@ -21,7 +21,8 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     Returns a CheckInReply with success or failure'''
 
     def CheckOut(self, request, context):
-        print(request.nric)
+        print(request.nric, request.checkout)
+        updateData(request.nric, request.checkout)
         return safeentry_pb2.CheckOutReply(message="Success")
 
 
@@ -34,7 +35,6 @@ def serve():
 
 
 def addData(nric, location, dateTime):
-
     with open("datas/datas.json", "r") as f:
         file = json.load(f)
 
@@ -42,7 +42,8 @@ def addData(nric, location, dateTime):
         nric: [
             {
                 "location": location,
-                "checkInDateTime": dateTime
+                "checkInDateTime": dateTime,
+                "checkOutDateTime": ""
             }
         ]
     }
@@ -53,6 +54,20 @@ def addData(nric, location, dateTime):
 
     with open("datas/datas.json", "w") as out:
         out.write(json_obj)
+
+
+def updateData(nric, dateTime):
+    with open("datas/datas.json", "r") as f:
+        file = json.load(f)
+    cur = file[nric]
+    cur[0]["checkOutDateTime"] = dateTime
+    print(cur[0]["checkOutDateTime"])
+
+    json_obj = json.dumps(file, indent=4)
+
+    with open("datas/datas.json", "w") as out:
+        out.write(json_obj)
+
 
 if __name__ == '__main__':
     logging.basicConfig()
