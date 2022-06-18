@@ -12,6 +12,7 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     '''Function to take user checkin info
     Returns a CheckInReply with success or failure'''
 
+    #TODO Ensure IC is 9 digits and starts with 'S' or 'T' and ends with letter
     def CheckIn(self, request, context):
         print(request.nric, request.location)
         addData(request.nric, request.location, request.checkin)

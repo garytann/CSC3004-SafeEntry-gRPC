@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # ignore datas file
-/datas
+./datas
