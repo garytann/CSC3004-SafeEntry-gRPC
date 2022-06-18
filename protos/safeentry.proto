@@ -7,7 +7,8 @@ service SafeEntry {
     rpc CheckInGroup (GroupInRequest) returns (CheckInOutReply) {}
     rpc CheckOutGroup (GroupOutRequest) returns (CheckInOutReply) {}
     rpc LocationHistory (HistoryRequest) returns (HistoryReply) {}
-    rpc CheckCases (LocationCheck) returns (LocationReply){}
+    rpc CheckCases (LocationCheck) returns (LocationReply) {}
+    rpc FlagLocation (FlagRequest) returns (FlagReply) {}
 
 }
 
@@ -53,4 +54,12 @@ message LocationCheck{
 
 message LocationReply{
     repeated string locationList = 1;
+}
+
+message FlagRequest{
+    string location = 1;
+}
+
+message FlagReply{
+    string message = 1;
 }

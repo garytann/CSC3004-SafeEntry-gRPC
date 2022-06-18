@@ -44,6 +44,11 @@ class SafeEntryStub(object):
                 request_serializer=safeentry__pb2.LocationCheck.SerializeToString,
                 response_deserializer=safeentry__pb2.LocationReply.FromString,
                 )
+        self.FlagLocation = channel.unary_unary(
+                '/SafeEntry/FlagLocation',
+                request_serializer=safeentry__pb2.FlagRequest.SerializeToString,
+                response_deserializer=safeentry__pb2.FlagReply.FromString,
+                )
 
 
 class SafeEntryServicer(object):
@@ -85,6 +90,12 @@ class SafeEntryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def FlagLocation(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SafeEntryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -117,6 +128,11 @@ def add_SafeEntryServicer_to_server(servicer, server):
                     servicer.CheckCases,
                     request_deserializer=safeentry__pb2.LocationCheck.FromString,
                     response_serializer=safeentry__pb2.LocationReply.SerializeToString,
+            ),
+            'FlagLocation': grpc.unary_unary_rpc_method_handler(
+                    servicer.FlagLocation,
+                    request_deserializer=safeentry__pb2.FlagRequest.FromString,
+                    response_serializer=safeentry__pb2.FlagReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -227,5 +243,22 @@ class SafeEntry(object):
         return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckCases',
             safeentry__pb2.LocationCheck.SerializeToString,
             safeentry__pb2.LocationReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def FlagLocation(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SafeEntry/FlagLocation',
+            safeentry__pb2.FlagRequest.SerializeToString,
+            safeentry__pb2.FlagReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

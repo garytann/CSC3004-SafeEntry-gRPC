@@ -11,8 +11,6 @@ import safeentry_pb2_grpc
 
 '''Function to log a checkin to server
 Args: gRPC stub and variables to pass to server: user name, NRIC, building name, checkin datetime'''
-
-
 def checkin(stub, name, nric, location, checkin):
     response = stub.CheckIn(safeentry_pb2.CheckInRequest(name=name, nric=nric, location=location, checkin=checkin))
     print(response.message)
@@ -76,16 +74,20 @@ def get_history(stub, nric):
     for location in response.locations:
         print(location)
 
-
 '''Function to check for positive covid cases
 Requirement: within the past 14 days
 '''
 
-
 def check_cases(stub,nric):
     response = stub.CheckCases(safeentry_pb2.LocationCheck(nric=nric))
-    print(response)
 
+
+'''Function to add location to list of infected locations
+Args: gRPC stub and variables to pass to server: location'''
+def flag_location(stub, location):
+    response = stub.FlagLocation(safeentry_pb2.FlagRequest(location=location))
+
+    print(response.message)
 
 ########################
 ### PYTHON FUNCTIONS ###
@@ -105,6 +107,8 @@ if __name__ == "__main__":
     # So establish once here and reuse
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = safeentry_pb2_grpc.SafeEntryStub(channel)
+
+        #TODO check NRIC
 
         # checkin(stub, "TJ", "S087896T", "SIT", get_current_datetime())
 
