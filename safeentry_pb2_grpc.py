@@ -39,6 +39,11 @@ class SafeEntryStub(object):
                 request_serializer=safeentry__pb2.HistoryRequest.SerializeToString,
                 response_deserializer=safeentry__pb2.HistoryReply.FromString,
                 )
+        self.CheckCases = channel.unary_unary(
+                '/SafeEntry/CheckCases',
+                request_serializer=safeentry__pb2.LocationCheck.SerializeToString,
+                response_deserializer=safeentry__pb2.LocationReply.FromString,
+                )
 
 
 class SafeEntryServicer(object):
@@ -74,6 +79,12 @@ class SafeEntryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CheckCases(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SafeEntryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -101,6 +112,11 @@ def add_SafeEntryServicer_to_server(servicer, server):
                     servicer.LocationHistory,
                     request_deserializer=safeentry__pb2.HistoryRequest.FromString,
                     response_serializer=safeentry__pb2.HistoryReply.SerializeToString,
+            ),
+            'CheckCases': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckCases,
+                    request_deserializer=safeentry__pb2.LocationCheck.FromString,
+                    response_serializer=safeentry__pb2.LocationReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -194,5 +210,22 @@ class SafeEntry(object):
         return grpc.experimental.unary_unary(request, target, '/SafeEntry/LocationHistory',
             safeentry__pb2.HistoryRequest.SerializeToString,
             safeentry__pb2.HistoryReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CheckCases(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SafeEntry/CheckCases',
+            safeentry__pb2.LocationCheck.SerializeToString,
+            safeentry__pb2.LocationReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

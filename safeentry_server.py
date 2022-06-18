@@ -97,6 +97,12 @@ def updateData(nric, dateTime):
     with open("datas/datas.json", "w") as out:
         out.write(json_obj)
 
+##TODO check if the location has covid in the past 14 days
+def checkCases(nric, location):
+    with open("datas/location.json", "r") as f:
+        locations = json.load(f)
+
+
 
 if __name__ == '__main__':
     logging.basicConfig()
