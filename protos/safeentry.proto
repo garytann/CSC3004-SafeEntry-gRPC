@@ -6,6 +6,7 @@ service SafeEntry {
     rpc CheckOut (CheckOutRequest) returns (CheckInOutReply) {}
     rpc CheckInGroup (GroupInRequest) returns (CheckInOutReply) {}
     rpc CheckOutGroup (GroupOutRequest) returns (CheckInOutReply) {}
+    rpc LocationHistory (HistoryRequest) returns (HistoryReply) {}
 
 }
 
@@ -35,4 +36,12 @@ message GroupInRequest {
 message GroupOutRequest {
     repeated string nric = 1;
     string checkout = 2;
+}
+
+message HistoryRequest {
+    string nric = 1;
+}
+
+message HistoryReply {
+    repeated string locations = 1;
 }

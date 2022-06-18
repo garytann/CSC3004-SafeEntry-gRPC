@@ -42,6 +42,15 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
             print(ic)
         return safeentry_pb2.CheckInOutReply(message="Success")
 
+    '''Function to return list of locations visited
+    Using user's NRIC, traverse through JSON db and collate all locations
+    Returns list of locations'''
+    def LocationHistory(self, request, context):
+        #TODO JSON logic to find locations
+        #TODO Check if NRIC exists
+        locations = ["SP", "NYP", "Tekong"]
+        return safeentry_pb2.HistoryReply(locations=locations)
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

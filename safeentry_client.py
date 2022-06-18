@@ -4,6 +4,9 @@ import grpc
 import safeentry_pb2
 import safeentry_pb2_grpc
 
+# To build gRPC stubs:
+# python -m grpc_tools.protoc -I./protos --python_out=. --grpc_python_out=. ./protos/safeentry.proto
+
 ### GRPC Functions ###
 
 '''Function to log a checkin to server
@@ -42,6 +45,8 @@ def checkin_group(stub, nameList: list, nricList: list, location, checkin):
     response = stub.CheckInGroup(safeentry_pb2.GroupInRequest(name=nameList, nric=nricList, location=location, checkin=checkin))
     print(response.message)
 
+'''Function to checkout a group of people
+Args: gRPC stub and variables to pass to server: list of NRICs and checkout datetime'''
 def checkout_group(stub, nricList: list, checkout):
     if type(nricList) != list:
         print("Failure")
@@ -50,6 +55,14 @@ def checkout_group(stub, nricList: list, checkout):
 
     response = stub.CheckOutGroup(safeentry_pb2.GroupOutRequest(nric=nricList, checkout=checkout))
     print(response.message)
+
+'''Function to get list of visited locations
+Args: gRPC stub and variables to pass to server: nric'''
+def get_history(stub, nric):
+    response = stub.LocationHistory(safeentry_pb2.HistoryRequest(nric=nric))
+    
+    for location in response.locations:
+        print(location)
 
 ########################
 ### PYTHON FUNCTIONS ###
@@ -79,4 +92,6 @@ if __name__ == "__main__":
 
         # checkin_group(stub, "A", "S1", "SIT", get_current_datetime())
 
-        checkout_group(stub, ["S1"], get_current_datetime())
+        # checkout_group(stub, ["S1"], get_current_datetime())
+
+        get_history(stub, "S1")
