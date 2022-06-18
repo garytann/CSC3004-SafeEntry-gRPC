@@ -82,8 +82,8 @@ Requirement: within the past 14 days
 '''
 
 
-def check_cases(stub):
-    response = stub.CheckCases(safeentry_pb2.LocationCheck())
+def check_cases(stub,nric):
+    response = stub.CheckCases(safeentry_pb2.LocationCheck(nric=nric))
     print(response)
 
 
@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
         # checkout(stub, "S087896T", get_current_datetime())
 
-        check_cases(stub)
+        check_cases(stub, "S087896T")
 
         testgroup = ["S1", "S2"]
         testnames = ["A", "B"]

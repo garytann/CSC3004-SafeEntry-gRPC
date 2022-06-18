@@ -56,8 +56,8 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
         return safeentry_pb2.HistoryReply(locations=locations)
 
     def CheckCases(self, request, context):
-        getLocation()
-        return safeentry_pb2.LocationReply(location="success")
+        getCases(request.nric, getLocation())
+        return safeentry_pb2.LocationReply(location=getCases())
 
 
 def serve():
@@ -128,6 +128,28 @@ def getLocation():
     print(locationList)
 
     return locationList
+
+
+def getCases(nric, infectedLocation: list):
+    LocationList = []
+    now = datetime.now()
+    cur = now - timedelta(days=14)
+
+    with open("datas/datas.json", 'r') as f:
+        file = json.load(f)
+
+    nric = file[nric]
+    for j in nric:
+        locations = nric[j]["Location"]
+        locationDateTime = nric[j]["checkInDateTime"]
+        locationDateTime = datetime.strptime(locationDateTime, '%d/%m/%Y')
+
+        if locationDateTime > cur and locations in infectedLocation:
+            LocationList.append(locations, locationDateTime)
+        # TODO add the nric and locations into a key value pair?
+
+
+    return LocationList
 
 
 if __name__ == '__main__':

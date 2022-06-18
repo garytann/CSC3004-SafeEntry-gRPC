@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsafeentry.proto\"O\n\x0e\x43heckInRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04nric\x18\x02 \x01(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"\"\n\x0f\x43heckInOutReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"1\n\x0f\x43heckOutRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\x12\x10\n\x08\x63heckout\x18\x02 \x01(\t\"O\n\x0eGroupInRequest\x12\x0c\n\x04name\x18\x01 \x03(\t\x12\x0c\n\x04nric\x18\x02 \x03(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"1\n\x0fGroupOutRequest\x12\x0c\n\x04nric\x18\x01 \x03(\t\x12\x10\n\x08\x63heckout\x18\x02 \x01(\t\"\x1e\n\x0eHistoryRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\"!\n\x0cHistoryReply\x12\x11\n\tlocations\x18\x01 \x03(\t\"\x0f\n\rLocationCheck\"!\n\rLocationReply\x12\x10\n\x08location\x18\x01 \x01(\t2\xbe\x02\n\tSafeEntry\x12.\n\x07\x43heckIn\x12\x0f.CheckInRequest\x1a\x10.CheckInOutReply\"\x00\x12\x30\n\x08\x43heckOut\x12\x10.CheckOutRequest\x1a\x10.CheckInOutReply\"\x00\x12\x33\n\x0c\x43heckInGroup\x12\x0f.GroupInRequest\x1a\x10.CheckInOutReply\"\x00\x12\x35\n\rCheckOutGroup\x12\x10.GroupOutRequest\x1a\x10.CheckInOutReply\"\x00\x12\x33\n\x0fLocationHistory\x12\x0f.HistoryRequest\x1a\r.HistoryReply\"\x00\x12.\n\nCheckCases\x12\x0e.LocationCheck\x1a\x0e.LocationReply\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsafeentry.proto\"O\n\x0e\x43heckInRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04nric\x18\x02 \x01(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"\"\n\x0f\x43heckInOutReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"1\n\x0f\x43heckOutRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\x12\x10\n\x08\x63heckout\x18\x02 \x01(\t\"O\n\x0eGroupInRequest\x12\x0c\n\x04name\x18\x01 \x03(\t\x12\x0c\n\x04nric\x18\x02 \x03(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"1\n\x0fGroupOutRequest\x12\x0c\n\x04nric\x18\x01 \x03(\t\x12\x10\n\x08\x63heckout\x18\x02 \x01(\t\"\x1e\n\x0eHistoryRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\"!\n\x0cHistoryReply\x12\x11\n\tlocations\x18\x01 \x03(\t\"\x1d\n\rLocationCheck\x12\x0c\n\x04nric\x18\x01 \x01(\t\"%\n\rLocationReply\x12\x14\n\x0clocationList\x18\x01 \x03(\t2\xbe\x02\n\tSafeEntry\x12.\n\x07\x43heckIn\x12\x0f.CheckInRequest\x1a\x10.CheckInOutReply\"\x00\x12\x30\n\x08\x43heckOut\x12\x10.CheckOutRequest\x1a\x10.CheckInOutReply\"\x00\x12\x33\n\x0c\x43heckInGroup\x12\x0f.GroupInRequest\x1a\x10.CheckInOutReply\"\x00\x12\x35\n\rCheckOutGroup\x12\x10.GroupOutRequest\x1a\x10.CheckInOutReply\"\x00\x12\x33\n\x0fLocationHistory\x12\x0f.HistoryRequest\x1a\r.HistoryReply\"\x00\x12.\n\nCheckCases\x12\x0e.LocationCheck\x1a\x0e.LocationReply\"\x00\x62\x06proto3')
 
 
 
@@ -109,9 +109,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _HISTORYREPLY._serialized_start=351
   _HISTORYREPLY._serialized_end=384
   _LOCATIONCHECK._serialized_start=386
-  _LOCATIONCHECK._serialized_end=401
-  _LOCATIONREPLY._serialized_start=403
-  _LOCATIONREPLY._serialized_end=436
-  _SAFEENTRY._serialized_start=439
-  _SAFEENTRY._serialized_end=757
+  _LOCATIONCHECK._serialized_end=415
+  _LOCATIONREPLY._serialized_start=417
+  _LOCATIONREPLY._serialized_end=454
+  _SAFEENTRY._serialized_start=457
+  _SAFEENTRY._serialized_end=775
 # @@protoc_insertion_point(module_scope)

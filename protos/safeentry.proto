@@ -48,8 +48,9 @@ message HistoryReply {
 }
 
 message LocationCheck{
+    string nric = 1;
 }
 
 message LocationReply{
-    string location = 1;
+    repeated string locationList = 1;
 }
