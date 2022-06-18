@@ -9,9 +9,9 @@ from datetime import datetime
 
 
 class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
+    
     '''Function to take user checkin info
     Returns a CheckInReply with success or failure'''
-
     #TODO Ensure IC is 9 digits and starts with 'S' or 'T' and ends with letter
     def CheckIn(self, request, context):
         print(request.nric, request.location)
@@ -20,12 +20,20 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
         return safeentry_pb2.CheckInReply(message="Success")
 
     '''Function to take user checkin info
-    Returns a CheckInReply with success or failure'''
-
+    Returns a CheckOutReply with success or failure'''
     def CheckOut(self, request, context):
         print(request.nric, request.checkout)
         updateData(request.nric, request.checkout)
         return safeentry_pb2.CheckOutReply(message="Success")
+
+    '''Function to take checkin info of groups
+    Returns a CheckInReply with success or failure'''
+    def CheckInGroup(self, request, context):
+        #request.nric and request.name are lists
+        print(len(request.nric))
+        for ic in request.nric:
+            print(ic)
+        return safeentry_pb2.CheckInReply(message="Success")
 
 
 def serve():
@@ -35,6 +43,9 @@ def serve():
     server.start()
     server.wait_for_termination()
 
+######################
+### JSON FUNCTIONS ###
+######################
 
 def addData(nric, location, dateTime):
     with open("datas/datas.json", "r") as f:
@@ -57,7 +68,7 @@ def addData(nric, location, dateTime):
     with open("datas/datas.json", "w") as out:
         out.write(json_obj)
 
-
+#TODO remember the last location checkedin to check out from
 def updateData(nric, dateTime):
     with open("datas/datas.json", "r") as f:
         file = json.load(f)

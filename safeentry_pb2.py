@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsafeentry.proto\"O\n\x0e\x43heckInRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04nric\x18\x02 \x01(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"\x1f\n\x0c\x43heckInReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"?\n\x0f\x43heckOutRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04nric\x18\x02 \x01(\t\x12\x10\n\x08\x63heckout\x18\x03 \x01(\t\" \n\rCheckOutReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"O\n\x0eGroupInRequest\x12\x0c\n\x04name\x18\x01 \x03(\t\x12\x0c\n\x04nric\x18\x02 \x03(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"?\n\x0fGroupOutRequest\x12\x0c\n\x04name\x18\x01 \x03(\t\x12\x0c\n\x04nric\x18\x02 \x03(\t\x12\x10\n\x08\x63heckout\x18\x04 \x01(\t2\xcf\x01\n\tSafeEntry\x12+\n\x07\x43heckIn\x12\x0f.CheckInRequest\x1a\r.CheckInReply\"\x00\x12.\n\x08\x43heckOut\x12\x10.CheckOutRequest\x1a\x0e.CheckOutReply\"\x00\x12\x30\n\x0c\x43heckInGroup\x12\x0f.GroupInRequest\x1a\r.CheckInReply\"\x00\x12\x33\n\rCheckOutGroup\x12\x10.GroupOutRequest\x1a\x0e.CheckOutReply\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fsafeentry.proto\"O\n\x0e\x43heckInRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04nric\x18\x02 \x01(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"\x1f\n\x0c\x43heckInReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"1\n\x0f\x43heckOutRequest\x12\x0c\n\x04nric\x18\x01 \x01(\t\x12\x10\n\x08\x63heckout\x18\x02 \x01(\t\" \n\rCheckOutReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"O\n\x0eGroupInRequest\x12\x0c\n\x04name\x18\x01 \x03(\t\x12\x0c\n\x04nric\x18\x02 \x03(\t\x12\x10\n\x08location\x18\x03 \x01(\t\x12\x0f\n\x07\x63heckin\x18\x04 \x01(\t\"1\n\x0fGroupOutRequest\x12\x0c\n\x04nric\x18\x01 \x03(\t\x12\x10\n\x08\x63heckout\x18\x02 \x01(\t2\xcf\x01\n\tSafeEntry\x12+\n\x07\x43heckIn\x12\x0f.CheckInRequest\x1a\r.CheckInReply\"\x00\x12.\n\x08\x43heckOut\x12\x10.CheckOutRequest\x1a\x0e.CheckOutReply\"\x00\x12\x30\n\x0c\x43heckInGroup\x12\x0f.GroupInRequest\x1a\r.CheckInReply\"\x00\x12\x33\n\rCheckOutGroup\x12\x10.GroupOutRequest\x1a\x0e.CheckOutReply\"\x00\x62\x06proto3')
 
 
 
@@ -75,13 +75,13 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CHECKINREPLY._serialized_start=100
   _CHECKINREPLY._serialized_end=131
   _CHECKOUTREQUEST._serialized_start=133
-  _CHECKOUTREQUEST._serialized_end=196
-  _CHECKOUTREPLY._serialized_start=198
-  _CHECKOUTREPLY._serialized_end=230
-  _GROUPINREQUEST._serialized_start=232
-  _GROUPINREQUEST._serialized_end=311
-  _GROUPOUTREQUEST._serialized_start=313
-  _GROUPOUTREQUEST._serialized_end=376
-  _SAFEENTRY._serialized_start=379
-  _SAFEENTRY._serialized_end=586
+  _CHECKOUTREQUEST._serialized_end=182
+  _CHECKOUTREPLY._serialized_start=184
+  _CHECKOUTREPLY._serialized_end=216
+  _GROUPINREQUEST._serialized_start=218
+  _GROUPINREQUEST._serialized_end=297
+  _GROUPOUTREQUEST._serialized_start=299
+  _GROUPOUTREQUEST._serialized_end=348
+  _SAFEENTRY._serialized_start=351
+  _SAFEENTRY._serialized_end=558
 # @@protoc_insertion_point(module_scope)
