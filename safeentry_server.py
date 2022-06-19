@@ -5,8 +5,9 @@ import logging
 import grpc
 import safeentry_pb2
 import safeentry_pb2_grpc
-import json
-from datetime import date, timedelta, datetime
+import safeentry_db
+# import json
+# from datetime import timedelta, datetime
 
 
 class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
@@ -54,6 +55,7 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
         locations = ["SP", "NYP", "Tekong"]
         return safeentry_pb2.HistoryReply(locations=locations)
 
+    '''Function to notify user '''
     def CheckCases(self, request, context):
         return safeentry_pb2.LocationReply(locationList=getCases(request.nric, getLocation()))
 
@@ -74,88 +76,88 @@ def serve():
 ### JSON FUNCTIONS ###
 ######################
 
-def addData(name, nric, location, dateTime):
-    with open("datas/datas.json", "r") as f:
-        file = json.load(f)
+# def addData(name, nric, location, dateTime):
+#     with open("datas/datas.json", "r") as f:
+#         file = json.load(f)
 
-    datas = {
-        nric: [
-            {
-                "name": name,
-                "location": location,
-                "checkInDateTime": dateTime,
-                "checkOutDateTime": ""
-            }
-        ]
-    }
+#     datas = {
+#         nric: [
+#             {
+#                 "name": name,
+#                 "location": location,
+#                 "checkInDateTime": dateTime,
+#                 "checkOutDateTime": ""
+#             }
+#         ]
+#     }
 
-    file.update(datas)
+#     file.update(datas)
 
-    json_obj = json.dumps(file, indent=4)
+#     json_obj = json.dumps(file, indent=4)
 
-    with open("datas/datas.json", "w") as out:
-        out.write(json_obj)
-
-
-# TODO remember the last location checkedin to check out from
-def updateData(nric, dateTime):
-    with open("datas/datas.json", "r") as f:
-        file = json.load(f)
-    cur = file[nric]
-    cur[0]["checkOutDateTime"] = dateTime
-    print(cur[0]["checkOutDateTime"])
-
-    json_obj = json.dumps(file, indent=4)
-
-    with open("datas/datas.json", "w") as out:
-        out.write(json_obj)
+#     with open("datas/datas.json", "w") as out:
+#         out.write(json_obj)
 
 
-# TODO get the list of location that is within 14 days from current date
-def getLocation():
-    locationList = []
-    now = datetime.now()
+# # TODO remember the last location checkedin to check out from
+# def updateData(nric, dateTime):
+#     with open("datas/datas.json", "r") as f:
+#         file = json.load(f)
+#     cur = file[nric]
+#     cur[0]["checkOutDateTime"] = dateTime
+#     print(cur[0]["checkOutDateTime"])
 
-    ## 2022/6/4
-    cur = now - timedelta(days=14)
+#     json_obj = json.dumps(file, indent=4)
 
-    with open("datas/location.json", "r") as f:
-        locations = json.load(f)
-    for i in locations:
-        locationDate = locations[i]["Date"]
-        locationDate = datetime.strptime(locationDate, '%d/%m/%Y')
-
-        if (locationDate > cur):
-            locationList.append(i)
-
-    print(locationList)
-
-    return locationList
+#     with open("datas/datas.json", "w") as out:
+#         out.write(json_obj)
 
 
-def getCases(nric, infectedLocation: list):
-    LocationList = []
-    now = datetime.now()
-    cur = now - timedelta(days=14)
+# # TODO get the list of location that is within 14 days from current date
+# def getLocation():
+#     locationList = []
+#     now = datetime.now()
 
-    with open("datas/datas.json", 'r') as f:
-        file = json.load(f)
+#     ## 2022/6/4
+#     cur = now - timedelta(days=14)
 
-    visitedLocation = file[nric]
-    print(visitedLocation)
-    for j in visitedLocation:
-        locations = j["location"]
-        locationDateTime = j["checkInDateTime"]
-        locationDateTime = datetime.strptime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
+#     with open("datas/location.json", "r") as f:
+#         locations = json.load(f)
+#     for i in locations:
+#         locationDate = locations[i]["Date"]
+#         locationDate = datetime.strptime(locationDate, '%d/%m/%Y')
 
-        if locationDateTime > cur and locations in infectedLocation:
-            locationDateTime = datetime.strftime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
-            LocationList.append(locations)
-            LocationList.append(locationDateTime)
-        # TODO add the nric and locations into a key value pair?
+#         if (locationDate > cur):
+#             locationList.append(i)
 
-    print(LocationList)
-    return LocationList
+#     print(locationList)
+
+#     return locationList
+
+
+# def getCases(nric, infectedLocation: list):
+#     LocationList = []
+#     now = datetime.now()
+#     cur = now - timedelta(days=14)
+
+#     with open("datas/datas.json", 'r') as f:
+#         file = json.load(f)
+
+#     visitedLocation = file[nric]
+#     print(visitedLocation)
+#     for j in visitedLocation:
+#         locations = j["location"]
+#         locationDateTime = j["checkInDateTime"]
+#         locationDateTime = datetime.strptime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
+
+#         if locationDateTime > cur and locations in infectedLocation:
+#             locationDateTime = datetime.strftime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
+#             LocationList.append(locations)
+#             LocationList.append(locationDateTime)
+#         # TODO add the nric and locations into a key value pair?
+
+#     print(LocationList)
+#     return LocationList
 
 
 if __name__ == '__main__':
