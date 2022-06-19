@@ -19,9 +19,10 @@
     ],
     "S087896T": [
         {
+            "name": "TJ",
             "location": "SIT",
-            "checkInDateTime": "18/06/2022, 18:15:20",
-            "checkOutDateTime": "18/06/2022, 18:15:20"
+            "checkInDateTime": "19/06/2022, 20:26:51",
+            "checkOutDateTime": "19/06/2022, 20:26:51"
         }
     ]
 }

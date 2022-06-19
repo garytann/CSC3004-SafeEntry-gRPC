@@ -9,27 +9,27 @@ import safeentry_db
 # import json
 # from datetime import timedelta, datetime
 
-
 class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
+    
+    def __init__(self):
+        self.db = safeentry_db.Database()
+    
     '''Function to take user checkin info
     Returns a CheckInReply with success or failure'''
-
     def CheckIn(self, request, context):
         print(request.nric, request.location)
-        addData(request.name, request.nric, request.location, request.checkin)
+        self.db.addData(request.name, request.nric, request.location, request.checkin)
         return safeentry_pb2.CheckInOutReply(message="Success")
 
     '''Function to take user checkin info
     Returns a CheckOutReply with success or failure'''
-
     def CheckOut(self, request, context):
         print(request.nric, request.checkout)
-        updateData(request.nric, request.checkout)
+        self.db.updateData(request.nric, request.checkout)
         return safeentry_pb2.CheckInOutReply(message="Success")
 
     '''Function to take checkin info of groups
     Returns a CheckInReply with success or failure'''
-
     def CheckInGroup(self, request, context):
         # request.nric and request.name are lists
         for ic in request.nric:
@@ -38,7 +38,6 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
 
     '''Function to checkout groups
     Returns a CheckOutReply with success or failure'''
-
     def CheckOutGroup(self, request, context):
         # request.nric is a list
         for ic in request.nric:
@@ -48,16 +47,15 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     '''Function to return list of locations visited
     Using user's NRIC, traverse through JSON db and collate all locations
     Returns list of locations'''
-
     def LocationHistory(self, request, context):
         # TODO JSON logic to find locations
         # TODO Check if NRIC exists
         locations = ["SP", "NYP", "Tekong"]
         return safeentry_pb2.HistoryReply(locations=locations)
-
+    
     '''Function to notify user '''
     def CheckCases(self, request, context):
-        return safeentry_pb2.LocationReply(locationList=getCases(request.nric, getLocation()))
+        return safeentry_pb2.LocationReply(locationList=self.db.getCases(request.nric, self.db.getLocation()))
 
     def FlagLocation(self, request, context):
         # TODO JSON logic to add location into location.json

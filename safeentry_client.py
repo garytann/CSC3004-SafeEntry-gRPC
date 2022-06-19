@@ -19,8 +19,6 @@ def checkin(stub, name, nric, location, checkin):
 '''Function to log a checkout from existing location to server
 Checkout doesn't need name, just needs NRIC to find user in database
 Args: gRPC stub and variables to pass to server: NRIC, checkout datetime'''
-
-
 def checkout(stub, nric, checkout):
     response = stub.CheckOut(safeentry_pb2.CheckOutRequest(nric=nric, checkout=checkout))
     print(response.message)
@@ -28,8 +26,6 @@ def checkout(stub, nric, checkout):
 
 '''Function to checkin a group of people
 Args: gRPC stub and variables to pass to server: list of names, list of NRICs, location and checkin datetime'''
-
-
 def checkin_group(stub, nameList: list, nricList: list, location, checkin):
     # List inputs must be list
     # If the input is only a single string input ("Dave" instead of ["Dave"]), 
@@ -52,8 +48,6 @@ def checkin_group(stub, nameList: list, nricList: list, location, checkin):
 
 '''Function to checkout a group of people
 Args: gRPC stub and variables to pass to server: list of NRICs and checkout datetime'''
-
-
 def checkout_group(stub, nricList: list, checkout):
     if type(nricList) != list:
         print("Failure")
@@ -66,8 +60,6 @@ def checkout_group(stub, nricList: list, checkout):
 
 '''Function to get list of visited locations
 Args: gRPC stub and variables to pass to server: nric'''
-
-
 def get_history(stub, nric):
     response = stub.LocationHistory(safeentry_pb2.HistoryRequest(nric=nric))
 
@@ -75,9 +67,7 @@ def get_history(stub, nric):
         print(location)
 
 '''Function to check for positive covid cases
-Requirement: within the past 14 days
-'''
-
+Requirement: within the past 14 days'''
 def check_cases(stub,nric):
     response = stub.CheckCases(safeentry_pb2.LocationCheck(nric=nric))
     print(response.locationList)
@@ -96,8 +86,6 @@ def flag_location(stub, location):
 
 '''Function to get current datetime
 Returns string with current date and time (e.g. 24/12/2018, 04:59:31)'''
-
-
 def get_current_datetime():
     now = datetime.now()
     return now.strftime("%d/%m/%Y, %H:%M:%S")
@@ -115,13 +103,13 @@ if __name__ == "__main__":
 
         # checkout(stub, "S087896T", get_current_datetime())
 
-        check_cases(stub, "S087896T")
+        # check_cases(stub, "S087896T")
 
-        testgroup = ["S1", "S2"]
-        testnames = ["A", "B"]
+        # testgroup = ["S1", "S2"]
+        # testnames = ["A", "B"]
 
-        # checkin_group(stub, "A", "S1", "SIT", get_current_datetime())
+        # checkin_group(stub, ["A"], ["S1"], "SIT", get_current_datetime())
 
         # checkout_group(stub, ["S1"], get_current_datetime())
 
-        get_history(stub, "S1")
+        # get_history(stub, "S1")
