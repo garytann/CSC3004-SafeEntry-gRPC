@@ -32,8 +32,11 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     Returns a CheckInReply with success or failure'''
     def CheckInGroup(self, request, context):
         # request.nric and request.name are lists
+        index = 0
         for ic in request.nric:
-            print(ic)
+            self.db.addData(request.name[index], ic, request.location, request.checkin)
+            print(request.name[index], ic)
+            index += 1
         return safeentry_pb2.CheckInOutReply(message="Success")
 
     '''Function to checkout groups
@@ -41,6 +44,7 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     def CheckOutGroup(self, request, context):
         # request.nric is a list
         for ic in request.nric:
+            self.db.updateData(ic, request.checkout)
             print(ic)
         return safeentry_pb2.CheckInOutReply(message="Success")
 
@@ -69,11 +73,16 @@ def serve():
     server.start()
     server.wait_for_termination()
 
+if __name__ == '__main__':
+    logging.basicConfig()
+    serve()
+
 
 ######################
 ### JSON FUNCTIONS ###
 ######################
-
+# DEPRECATED
+ 
 # def addData(name, nric, location, dateTime):
 #     with open("datas/datas.json", "r") as f:
 #         file = json.load(f)
@@ -158,6 +167,3 @@ def serve():
 #     return LocationList
 
 
-if __name__ == '__main__':
-    logging.basicConfig()
-    serve()

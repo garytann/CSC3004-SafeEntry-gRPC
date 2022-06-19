@@ -105,11 +105,11 @@ if __name__ == "__main__":
 
         # check_cases(stub, "S087896T")
 
-        # testgroup = ["S1", "S2"]
-        # testnames = ["A", "B"]
+        testgroup = ["S1", "S2"]
+        testnames = ["A", "B"]
 
-        # checkin_group(stub, ["A"], ["S1"], "SIT", get_current_datetime())
+        checkin_group(stub, testnames, testgroup, "SIT", get_current_datetime())
 
-        # checkout_group(stub, ["S1"], get_current_datetime())
+        checkout_group(stub, testgroup, get_current_datetime())
 
         # get_history(stub, "S1")
