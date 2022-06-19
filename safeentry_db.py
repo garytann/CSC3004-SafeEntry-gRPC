@@ -44,6 +44,20 @@ class Database():
         with open("datas/datas.json", "w") as out:
             out.write(json_obj)
 
+    def addLocation(self, location, dateTime):
+        location = {
+            location: 
+            {
+                "Date": dateTime
+            }
+        }
+
+        self.location_file.update(location)
+
+        json_obj = json.dumps(self.location_file, indent=4)
+
+        with open("datas/location.json", "w") as out:
+            out.write(json_obj)
 
     '''Function to get list of locations visited by a Covid case within past 14 days
     Returns list of locations'''
@@ -60,6 +74,22 @@ class Database():
 
             if (locationDate > cur):
                 locationList.append(i)
+
+        print(locationList)
+
+        return locationList
+    
+    '''Function to get list of locations visited by user
+    Returns list of locations'''
+    def getVisited(self, nric):
+        locationList = []
+        
+        ## 2022/6/4
+        now = datetime.now()
+        cur = now - timedelta(days=14)
+        
+        for i in self.data_file[nric]:
+            locationList.append(i["location"])
 
         print(locationList)
 
@@ -89,3 +119,8 @@ class Database():
 
         print(LocationList)
         return LocationList
+
+    '''Reusable function to check if NRIC exists in datas.json
+    Returns true if so'''
+    def nricExists(self, nric):
+        return False

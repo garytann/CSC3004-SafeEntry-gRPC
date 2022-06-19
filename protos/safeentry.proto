@@ -58,6 +58,7 @@ message LocationReply{
 
 message FlagRequest{
     string location = 1;
+    string datetime = 2;
 }
 
 message FlagReply{

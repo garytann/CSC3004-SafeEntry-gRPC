@@ -29,16 +29,16 @@
         {
             "name": "A",
             "location": "SIT",
-            "checkInDateTime": "19/06/2022, 22:15:21",
-            "checkOutDateTime": "19/06/2022, 22:15:21"
+            "checkInDateTime": "19/06/2022, 22:54:10",
+            "checkOutDateTime": "19/06/2022, 22:54:10"
         }
     ],
     "S2": [
         {
             "name": "B",
             "location": "SIT",
-            "checkInDateTime": "19/06/2022, 22:15:21",
-            "checkOutDateTime": "19/06/2022, 22:15:21"
+            "checkInDateTime": "19/06/2022, 22:54:10",
+            "checkOutDateTime": "19/06/2022, 22:54:10"
         }
     ]
 }

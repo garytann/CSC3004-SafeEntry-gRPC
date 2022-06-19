@@ -52,9 +52,8 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     Using user's NRIC, traverse through JSON db and collate all locations
     Returns list of locations'''
     def LocationHistory(self, request, context):
-        # TODO JSON logic to find locations
+        locations = self.db.getVisited(request.nric)
         # TODO Check if NRIC exists
-        locations = ["SP", "NYP", "Tekong"]
         return safeentry_pb2.HistoryReply(locations=locations)
     
     '''Function to notify user '''
@@ -63,6 +62,7 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
 
     def FlagLocation(self, request, context):
         # TODO JSON logic to add location into location.json
+        self.db.addLocation(request.location, request.datetime)
         return safeentry_pb2.FlagReply(message="Added!")
 
 

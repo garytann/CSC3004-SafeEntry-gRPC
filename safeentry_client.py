@@ -75,9 +75,8 @@ def check_cases(stub,nric):
 
 '''Function to add location to list of infected locations
 Args: gRPC stub and variables to pass to server: location'''
-def flag_location(stub, location):
-    response = stub.FlagLocation(safeentry_pb2.FlagRequest(location=location))
-
+def flag_location(stub, location, dateTime):
+    response = stub.FlagLocation(safeentry_pb2.FlagRequest(location=location, datetime=dateTime))
     print(response.message)
 
 ########################
@@ -97,19 +96,20 @@ if __name__ == "__main__":
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = safeentry_pb2_grpc.SafeEntryStub(channel)
 
-        #TODO check NRIC
-
         # checkin(stub, "TJ", "S087896T", "SIT", get_current_datetime())
 
         # checkout(stub, "S087896T", get_current_datetime())
 
         # check_cases(stub, "S087896T")
 
-        testgroup = ["S1", "S2"]
-        testnames = ["A", "B"]
+        # testgroup = ["S1", "S2"]
+        # testnames = ["A", "B"]
 
-        checkin_group(stub, testnames, testgroup, "SIT", get_current_datetime())
+        # checkin_group(stub, testnames, testgroup, "SIT", get_current_datetime())
 
-        checkout_group(stub, testgroup, get_current_datetime())
+        # checkout_group(stub, testgroup, get_current_datetime())
 
-        # get_history(stub, "S1")
+        # print(get_history(stub, "S3"))
+
+        now = datetime.now()
+        flag_location(stub, "Tekong", now.strftime("%d/%m/%Y, %H:%M:%S"))
