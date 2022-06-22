@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import grpc
 import safeentry_pb2
@@ -74,6 +74,8 @@ def check_cases(stub, nric):
 
     locationDict = {}
 
+    #TODO test when locationdict is empty
+
     # Split the dict string into locations first
     # remove the last element because it's empty
     for i in response.locationList.split(";")[:-1]:
@@ -100,17 +102,25 @@ def get_current_datetime():
 
 '''Function to print alert to user when they visited infected location'''
 def notify(dict):
-    # visitedCases = check_cases(nric)
-    
+
     if len(dict) > 0:
         print("Alert:")
         print("You have been in the same location as a Covid case:")
 
-        #TODO maybe only get the latest location 
+        oldest_date = datetime.now() - timedelta(days=14)
+        key = ""
+        
+        # Only get infected location that was visited most recently
         for i in dict:
-            print(f"{i} on {dict[i]}")
+            loc_date = datetime.strptime(dict[i], '%d/%m/%Y, %H:%M:%S')
+            if loc_date > oldest_date:
+                oldest_date = loc_date
+                key = i
 
-        print("Please isolate yourself until") #TODO
+        print(f"{key} on {dict[key]}")
+
+        print("Please isolate yourself for 14 days until:\n", 
+        datetime.strftime(oldest_date + timedelta(days=14), '%d/%m/%Y, %H:%M:%S'))
 
 
 if __name__ == "__main__":
@@ -123,7 +133,7 @@ if __name__ == "__main__":
 
         # checkout(stub, "S087896T", get_current_datetime())
 
-        notify(check_cases(stub, "S1"))
+        notify(check_cases(stub, "S2"))
 
         # testgroup = ["S1", "S2"]
         # testnames = ["A", "B"]
