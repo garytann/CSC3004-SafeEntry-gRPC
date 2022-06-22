@@ -56,7 +56,9 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
         # TODO Check if NRIC exists
         return safeentry_pb2.HistoryReply(locations=locations)
     
-    '''Function to notify user '''
+    '''Function to get locations user has visited that have been infected
+    Returns string representing a dict
+    Couldn't get dict passing to work'''
     def CheckCases(self, request, context):
         return safeentry_pb2.LocationReply(locationList=self.db.getCases(request.nric, self.db.getLocation()))
 

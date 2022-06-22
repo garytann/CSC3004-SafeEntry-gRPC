@@ -66,12 +66,21 @@ def get_history(stub, nric):
     for location in response.locations:
         print(location)
 
-'''Function to check for positive covid cases
-Requirement: within the past 14 days'''
-def check_cases(stub,nric):
+'''Function to check if user has visited an infected location in last 14 days and should isolate
+Args: gRPC stub and variables to pass to server: user nric
+Returns: dict of location and check-in datetime pairs'''
+def check_cases(stub, nric):
     response = stub.CheckCases(safeentry_pb2.LocationCheck(nric=nric))
-    print(response.locationList)
 
+    locationDict = {}
+
+    # Split the dict string into locations first
+    # remove the last element because it's empty
+    for i in response.locationList.split(";")[:-1]:
+        location = i.split("|")
+        locationDict[location[0]] = location[1]
+
+    return locationDict
 
 '''Function to add location to list of infected locations
 Args: gRPC stub and variables to pass to server: location'''
@@ -89,6 +98,20 @@ def get_current_datetime():
     now = datetime.now()
     return now.strftime("%d/%m/%Y, %H:%M:%S")
 
+'''Function to print alert to user when they visited infected location'''
+def notify(dict):
+    # visitedCases = check_cases(nric)
+    
+    if len(dict) > 0:
+        print("Alert:")
+        print("You have been in the same location as a Covid case:")
+
+        #TODO maybe only get the latest location 
+        for i in dict:
+            print(f"{i} on {dict[i]}")
+
+        print("Please isolate yourself until") #TODO
+
 
 if __name__ == "__main__":
     # Establishing channels and stubs before every function incurs overhead
@@ -100,7 +123,7 @@ if __name__ == "__main__":
 
         # checkout(stub, "S087896T", get_current_datetime())
 
-        # check_cases(stub, "S087896T")
+        notify(check_cases(stub, "S1"))
 
         # testgroup = ["S1", "S2"]
         # testnames = ["A", "B"]
@@ -111,5 +134,5 @@ if __name__ == "__main__":
 
         # print(get_history(stub, "S3"))
 
-        now = datetime.now()
-        flag_location(stub, "Tekong", now.strftime("%d/%m/%Y, %H:%M:%S"))
+        # now = datetime.now()
+        # flag_location(stub, "Tekong", now.strftime("%d/%m/%Y, %H:%M:%S"))

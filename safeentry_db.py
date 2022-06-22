@@ -53,7 +53,6 @@ class Database():
     def updateData(self, nric, dateTime):
         selected_user = self.data_file[nric]
 
-        # TODO remember the last location checkedin to check out from
         selected_user[-1]["checkOutDateTime"] = dateTime
         print(selected_user[-1]["checkOutDateTime"])
 
@@ -81,7 +80,7 @@ class Database():
     Returns list of locations'''
 
     def getLocation(self):
-        locationList = []
+        locationList = {}
 
         ## 2022/6/4
         now = datetime.now()
@@ -89,12 +88,13 @@ class Database():
 
         for i in self.location_file:
             locationDate = self.location_file[i]["Date"]
-            locationDate = datetime.strptime(locationDate, '%d/%m/%Y')
+            locationDateParsed = datetime.strptime(locationDate, '%d/%m/%Y, %H:%M:%S')
 
-            if (locationDate > cur):
-                locationList.append(i)
+            #If date visited by Covid case is within 14 days before current date
+            if (locationDateParsed > cur):
+                locationList[i] = locationDate
 
-        print(locationList)
+        print("Infected locations:", locationList)
 
         return locationList
 
@@ -120,7 +120,7 @@ class Database():
     Returns TODO'''
 
     def getCases(self, nric, infectedLocation: list):
-        LocationList = []
+        locationDict = ""
 
         now = datetime.now()
         cur = now - timedelta(days=14)
@@ -130,16 +130,17 @@ class Database():
         for j in visitedLocation:
             locations = j["location"]
             locationDateTime = j["checkInDateTime"]
-            locationDateTime = datetime.strptime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
+            locationDateTimeParsed = datetime.strptime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
+            
+            # If user visited before infection, shouldn't notify
+            if locationDateTimeParsed > cur and locations in infectedLocation:
 
-            if locationDateTime > cur and locations in infectedLocation:
-                locationDateTime = datetime.strftime(locationDateTime, '%d/%m/%Y, %H:%M:%S')
-                LocationList.append(locations)
-                LocationList.append(locationDateTime)
-            # TODO add the nric and locations into a key value pair?
+                infectedDateTimeParsed = datetime.strptime(infectedLocation[locations], '%d/%m/%Y, %H:%M:%S')
+                if locationDateTimeParsed > infectedDateTimeParsed: 
+                    locationDict += f"{locations}|{locationDateTime};"
 
-        print(LocationList)
-        return LocationList
+        print(f"Infected locations visited by {nric}: '{locationDict}'")
+        return locationDict
 
     '''Reusable function to check if NRIC exists in datas.json
     Returns true if so'''

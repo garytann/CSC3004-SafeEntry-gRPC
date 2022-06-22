@@ -53,7 +53,7 @@ message LocationCheck{
 }
 
 message LocationReply{
-    repeated string locationList = 1;
+    string locationList = 1;
 }
 
 message FlagRequest{
