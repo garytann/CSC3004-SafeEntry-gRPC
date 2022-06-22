@@ -55,7 +55,7 @@ class Database():
 
         # TODO remember the last location checkedin to check out from
         selected_user[-1]["checkOutDateTime"] = dateTime
-        print(selected_user[:-1]["checkOutDateTime"])
+        print(selected_user[-1]["checkOutDateTime"])
 
         json_obj = json.dumps(self.data_file, indent=4)
 
