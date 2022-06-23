@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  safeentry_backend:
+    build: ./
+    container_name: safeentry_service
+    restart: always
+    ports:
+      - "50051:50051"
