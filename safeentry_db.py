@@ -62,6 +62,10 @@ class Database():
             out.write(json_obj)
 
     def addLocation(self, location, dateTime):
+
+        #dateTime input comes in only with date
+        dateTime += ", 00:00:00"
+
         location = {
             location:
                 {
@@ -122,6 +126,9 @@ class Database():
 
     def getCases(self, nric, infectedLocation: list) -> str:
         locationDict = ""
+
+        #TODO
+        #if nricExists(nric)
 
         now = datetime.now()
         cur = now - timedelta(days=14)

@@ -122,6 +122,10 @@ def notify(dict):
         print("Please isolate yourself for 14 days until:\n", 
         datetime.strftime(oldest_date + timedelta(days=14), '%d/%m/%Y, %H:%M:%S'))
 
+    else:
+        print("You are safe from Covid")
+        print("Let's keep it that way")
+
 
 if __name__ == "__main__":
     # Establishing channels and stubs before every function incurs overhead
@@ -129,20 +133,103 @@ if __name__ == "__main__":
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = safeentry_pb2_grpc.SafeEntryStub(channel)
 
-        # checkin(stub, "TJ", "S087896T", "SIT", get_current_datetime())
+        print("Welcome to PrettySafeEntry")
+        nric = ""
 
-        # checkout(stub, "S087896T", get_current_datetime())
+        # IC error checking loop
+        while True: 
 
-        notify(check_cases(stub, "S2"))
+            nric = input("\nPlease enter a valid NRIC:")
 
-        # testgroup = ["S1", "S2"]
-        # testnames = ["A", "B"]
+            if (len(nric) == 9 and (nric[0].upper() == 'S' or nric[0].upper() == 'T') 
+            and nric[-1].isalpha() and nric[1:-2].isnumeric()) or nric=='admin':
+                break
 
-        # checkin_group(stub, testnames, testgroup, "SIT", get_current_datetime())
+            if len(nric) != 9 :
+                print("Incorrect NRIC length!")
+            else:
+                if nric[0].upper() != 'S' and nric[0].upper() != 'T':
+                    print("NRIC should start with S or T")
+                if not nric[-1].isalpha():
+                    print("NRIC should end with a letter")
+                if not nric[1:-2].isnumeric():
+                    print("NRIC needs 7 numbers")
 
-        # checkout_group(stub, testgroup, get_current_datetime())
+        # Check close contact status
+        if nric != 'admin':
+            notify(check_cases(stub, nric))
 
-        # print(get_history(stub, "S3"))
+        name = input("Input name: ")
+        print(f"\nWelcome {name}, {nric}")
 
-        # now = datetime.now()
-        # flag_location(stub, "Tekong", now.strftime("%d/%m/%Y, %H:%M:%S"))
+        # Action loop
+        while True:
+            print("Actions:")
+
+            # For MOH staff
+            if (nric=="admin"):
+                print("0) Add infected location")
+            print("1) Check-in to location")
+            print("2) Check-out from previous location")
+            print("3) Check-in group")
+            print("4) Check-out group")
+            print("5) Get visit history")
+
+            choice = input("Input choice: ")
+
+            # Choice error check
+            while not choice.isnumeric() or not (int(choice) < 6 and int(choice) >= 0):
+                print("\nInvalid choice!")
+                choice = input("Input choice: ")
+
+            print()
+
+            # Choice
+            if int(choice) == 0 and nric=='admin': 
+                    location = input("Input location: ")
+                    date = input("Input date in dd/mm/yyyy format: ")
+                    flag_location(stub, location, date)
+
+            elif choice == 1:
+                location = input("Input location: ")
+                checkin(stub, name, nric, location, get_current_datetime())
+
+            elif choice == 2:
+                checkout(stub, nric, get_current_datetime())
+
+            elif choice == 3:
+                names = []
+                ics = []
+
+                n = input("Number of people: ")
+
+                while not n.isnumeric():
+                    print("Please input a number")
+                    n = input("Number of people: ")
+
+                for i in range(int(n)):
+                    names[i] = input(f"Input name of member {i}")
+                    ics[i] = input(f"Input NRIC of member {i}")
+
+                location = input("Input location: ")
+                checkin_group(stub, names, ics, location, get_current_datetime())
+
+            elif choice == 4:
+                ics = []
+
+                n = input("Number of people: ")
+
+                while not n.isnumeric():
+                    print("Please input a number")
+                    n = input("Number of people: ")
+
+                for i in range(int(n)):
+                    ics[i] = input(f"Input NRIC of member {i}")
+
+                checkout_group(stub, ics, get_current_datetime())
+
+            elif choice == 5:
+                get_history(stub, nric)
+
+            print()
+
