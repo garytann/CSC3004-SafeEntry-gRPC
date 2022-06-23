@@ -25,8 +25,11 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     Returns a CheckOutReply with success or failure'''
     def CheckOut(self, request, context):
         print(request.nric, request.checkout)
-        self.db.updateData(request.nric, request.checkout)
-        return safeentry_pb2.CheckInOutReply(message="Success")
+        if self.db.nricExists(request.nric):
+            self.db.updateData(request.nric, request.checkout)
+            return safeentry_pb2.CheckInOutReply(message="Success")
+        else:
+            return safeentry_pb2.CheckInOutReply(message="Failure") 
 
     '''Function to take checkin info of groups
     Returns a CheckInReply with success or failure'''
@@ -44,7 +47,8 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     def CheckOutGroup(self, request, context):
         # request.nric is a list
         for ic in request.nric:
-            self.db.updateData(ic, request.checkout)
+            if self.db.nricExists(ic):
+                self.db.updateData(ic, request.checkout)
             print(ic)
         return safeentry_pb2.CheckInOutReply(message="Success")
 
@@ -53,7 +57,6 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
     Returns list of locations'''
     def LocationHistory(self, request, context):
         locations = self.db.getVisited(request.nric)
-        # TODO Check if NRIC exists
         return safeentry_pb2.HistoryReply(locations=locations)
     
     '''Function to get locations user has visited that have been infected
@@ -63,8 +66,7 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
         return safeentry_pb2.LocationReply(locationList=self.db.getCases(request.nric, self.db.getLocation()))
 
     def FlagLocation(self, request, context):
-        # TODO JSON logic to add location into location.json
-        dateTime = request.datetime + ", 00:00:00"
+        # dateTime = request.datetime + ", 00:00:00"
         self.db.addLocation(request.location, request.datetime)
         return safeentry_pb2.FlagReply(message="Added!")
 

@@ -51,6 +51,7 @@ class Database():
     Args: user's nric and check out datetime'''
 
     def updateData(self, nric, dateTime):
+                
         selected_user = self.data_file[nric]
 
         selected_user[-1]["checkOutDateTime"] = dateTime
@@ -60,6 +61,8 @@ class Database():
 
         with open("datas/datas.json", "w") as out:
             out.write(json_obj)
+
+            
 
     def addLocation(self, location, dateTime):
 
@@ -108,9 +111,8 @@ class Database():
     def getVisited(self, nric):
         locationList = []
 
-        ## 2022/6/4
-        now = datetime.now()
-        cur = now - timedelta(days=14)
+        if not self.nricExists(nric):
+            return locationList
 
         for i in self.data_file[nric]:
             locationList.append(i["location"])
@@ -127,8 +129,8 @@ class Database():
     def getCases(self, nric, infectedLocation: list) -> str:
         locationDict = ""
 
-        #TODO
-        #if nricExists(nric)
+        if not self.nricExists(nric):
+            return locationDict
 
         now = datetime.now()
         cur = now - timedelta(days=14)
@@ -154,4 +156,7 @@ class Database():
     Returns true if so'''
 
     def nricExists(self, nric):
-        return False
+        if nric in self.data_file:
+            return True
+        else:
+            return False
