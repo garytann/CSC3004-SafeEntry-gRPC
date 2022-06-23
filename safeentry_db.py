@@ -117,9 +117,10 @@ class Database():
 
     '''Function to check if user has visited an infected location within past 14 days
     Args: nric of user and list of infected locations
-    Returns TODO'''
+    Returns dict of location and vist datetime pairs, in the form of a string
+    Couldn't successfully send dicts over gRPC'''
 
-    def getCases(self, nric, infectedLocation: list):
+    def getCases(self, nric, infectedLocation: list) -> str:
         locationDict = ""
 
         now = datetime.now()

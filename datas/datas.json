@@ -39,6 +39,12 @@
             "location": "SIT",
             "checkInDateTime": "19/06/2022, 22:54:10",
             "checkOutDateTime": "19/06/2022, 22:54:10"
+        },
+        {
+            "name": "B",
+            "location": "NYP",
+            "checkInDateTime": "20/06/2022, 22:54:10",
+            "checkOutDateTime": "20/06/2022, 22:54:10"
         }
     ]
 }
