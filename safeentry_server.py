@@ -64,6 +64,7 @@ class SafeEntry(safeentry_pb2_grpc.SafeEntryServicer):
 
     def FlagLocation(self, request, context):
         # TODO JSON logic to add location into location.json
+        dateTime = request.datetime + ", 00:00:00"
         self.db.addLocation(request.location, request.datetime)
         return safeentry_pb2.FlagReply(message="Added!")
 

@@ -104,7 +104,7 @@ def get_current_datetime():
 def notify(dict):
 
     if len(dict) > 0:
-        print("Alert:")
+        print("\nAlert:")
         print("You have been in the same location as a Covid case:")
 
         oldest_date = datetime.now() - timedelta(days=14)
@@ -119,12 +119,12 @@ def notify(dict):
 
         print(f"{key} on {dict[key]}")
 
-        print("Please isolate yourself for 14 days until:\n", 
-        datetime.strftime(oldest_date + timedelta(days=14), '%d/%m/%Y, %H:%M:%S'))
+        print("Please isolate yourself for 14 days until:\n") 
+        print(datetime.strftime(oldest_date + timedelta(days=14), '%d/%m/%Y, %H:%M:%S'))
 
     else:
-        print("You are safe from Covid")
-        print("Let's keep it that way")
+        print("\nYou are safe from Covid")
+        print("Let's keep it that way\n")
 
 
 if __name__ == "__main__":
@@ -155,12 +155,13 @@ if __name__ == "__main__":
                 if not nric[1:-2].isnumeric():
                     print("NRIC needs 7 numbers")
 
-        # Check close contact status
         if nric != 'admin':
-            notify(check_cases(stub, nric))
+            name = input("Input name: ")
 
-        name = input("Input name: ")
-        print(f"\nWelcome {name}, {nric}")
+            notify(check_cases(stub, nric)) # Check close contact status
+            print(f"\nWelcome {name}, {nric}")
+        else:
+            print("\nAdmin mode\n")
 
         # Action loop
         while True:
@@ -175,29 +176,27 @@ if __name__ == "__main__":
             print("4) Check-out group")
             print("5) Get visit history")
 
-            choice = input("Input choice: ")
-
-            # Choice error check
-            while not choice.isnumeric() or not (int(choice) < 6 and int(choice) >= 0):
-                print("\nInvalid choice!")
-                choice = input("Input choice: ")
+            choice = input("Input choice (anything else to exit): ")
 
             print()
 
+            if choice.isalpha():
+                break 
+            
             # Choice
             if int(choice) == 0 and nric=='admin': 
                     location = input("Input location: ")
                     date = input("Input date in dd/mm/yyyy format: ")
                     flag_location(stub, location, date)
 
-            elif choice == 1:
+            elif int(choice) == 1:
                 location = input("Input location: ")
                 checkin(stub, name, nric, location, get_current_datetime())
 
-            elif choice == 2:
+            elif int(choice) == 2:
                 checkout(stub, nric, get_current_datetime())
 
-            elif choice == 3:
+            elif int(choice) == 3:
                 names = []
                 ics = []
 
@@ -208,13 +207,13 @@ if __name__ == "__main__":
                     n = input("Number of people: ")
 
                 for i in range(int(n)):
-                    names[i] = input(f"Input name of member {i}")
-                    ics[i] = input(f"Input NRIC of member {i}")
+                    names.append(input(f"Input name of member {i+1}: "))
+                    ics.append(input(f"Input NRIC of member {i+1}: "))
 
                 location = input("Input location: ")
                 checkin_group(stub, names, ics, location, get_current_datetime())
 
-            elif choice == 4:
+            elif int(choice) == 4:
                 ics = []
 
                 n = input("Number of people: ")
@@ -224,12 +223,16 @@ if __name__ == "__main__":
                     n = input("Number of people: ")
 
                 for i in range(int(n)):
-                    ics[i] = input(f"Input NRIC of member {i}")
+                    ics.append(input(f"Input NRIC of member {i+1}"))
 
                 checkout_group(stub, ics, get_current_datetime())
 
-            elif choice == 5:
+            elif int(choice) == 5:
+                print("\nPlaces checked-in:")
                 get_history(stub, nric)
+            
+            else:
+                break
 
             print()
 

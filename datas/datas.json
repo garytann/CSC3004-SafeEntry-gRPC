@@ -3,6 +3,11 @@
         {
             "location": "NYP",
             "checkInDateTime": "19/06/2022, 15:11:36"
+        },
+        {
+            "location": "Suntec",
+            "checkInDateTime": "23/06/2022, 19:43:44",
+            "checkOutDateTime": "23/06/2022, 19:43:51"
         }
     ],
     "S000000B": [
@@ -45,6 +50,22 @@
             "location": "NYP",
             "checkInDateTime": "20/06/2022, 22:54:10",
             "checkOutDateTime": "20/06/2022, 22:54:10"
+        }
+    ],
+    "S7654321B": [
+        {
+            "name": "Ben",
+            "location": "Esplanade",
+            "checkInDateTime": "23/06/2022, 20:23:23",
+            "checkOutDateTime": "23/06/2022, 20:24:52"
+        }
+    ],
+    "S1234567Z": [
+        {
+            "name": "Adam",
+            "location": "Esplanade",
+            "checkInDateTime": "23/06/2022, 20:23:23",
+            "checkOutDateTime": "23/06/2022, 20:24:52"
         }
     ]
 }
