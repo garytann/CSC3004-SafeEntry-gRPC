@@ -11,4 +11,3 @@ services:
       - "50051:50051"
 volumes:
   safeentry_db:
-    external: true
