@@ -4,6 +4,11 @@ services:
   safeentry_backend:
     build: ./
     container_name: safeentry_service
+    volumes:
+      - safeentry_db:/app/datas
     restart: always
     ports:
       - "50051:50051"
+volumes:
+  safeentry_db:
+    external: true
