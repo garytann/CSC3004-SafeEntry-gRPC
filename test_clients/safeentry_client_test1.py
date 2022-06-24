@@ -2,6 +2,10 @@ from datetime import datetime, timedelta
 
 import grpc
 from time import sleep
+
+# To access parent scripts
+import sys
+sys.path.append('../CSC3004-SafeEntry-gRPC')
 import safeentry_pb2
 import safeentry_pb2_grpc
 
@@ -140,9 +144,9 @@ if __name__ == "__main__":
         stub = safeentry_pb2_grpc.SafeEntryStub(channel)
 
         #Test variables
-        nric = "S9876543A"
-        name = "TEST2"
-        loc = "VivoCity"
+        nric = "S1234567A"
+        name = "TEST1"
+        loc = "Takashimaya"
 
         print("Welcome to PrettySafeEntry")
         print("\nPlease enter a valid NRIC: ", end="")

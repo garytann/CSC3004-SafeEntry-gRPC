@@ -2,6 +2,10 @@ from datetime import datetime, timedelta
 
 import grpc
 from time import sleep
+
+# To access parent scripts
+import sys
+sys.path.append('../CSC3004-SafeEntry-gRPC')
 import safeentry_pb2
 import safeentry_pb2_grpc
 
@@ -140,13 +144,13 @@ if __name__ == "__main__":
         stub = safeentry_pb2_grpc.SafeEntryStub(channel)
 
         #Test variables
-        nric = "S1234567A"
-        name = "TEST1"
-        loc = "Takashimaya"
+        nric = "S9876543A"
+        name = "TEST2"
+        loc = "VivoCity"
 
         print("Welcome to PrettySafeEntry")
         print("\nPlease enter a valid NRIC: ", end="")
-        sleep(2)
+        sleep(1.8)
         print(nric)
 
         notify(check_cases(stub, nric)) # Check close contact status
@@ -163,12 +167,12 @@ if __name__ == "__main__":
         print("5) Get visit history")
         print("Input choice (anything else to exit): ", end="")
 
-        sleep(2)
+        sleep(1.8)
         print("1")
         print()
 
         print("Input location: ", end="")
-        sleep(2)
+        sleep(1.8)
         print(loc)
         checkin(stub, name, nric, loc, get_current_datetime())
         print()
@@ -184,7 +188,7 @@ if __name__ == "__main__":
         print("5) Get visit history")
         print("Input choice (anything else to exit): ", end="")
 
-        sleep(2)
+        sleep(1.8)
         print("2")
         print()
         checkout(stub, nric, get_current_datetime())
@@ -201,7 +205,7 @@ if __name__ == "__main__":
         print("5) Get visit history")
         print("Input choice (anything else to exit): ", end="")
 
-        sleep(2)
+        sleep(1.8)
         print("5")
         print()
         print("\nPlaces checked-in:")
