@@ -30,5 +30,5 @@ RUN pip install --upgrade pip
 #Install python Dependecies
 RUN pip install --no-cache-dir -r requirements.txt --no-dependencies
 
-ENTRYPOINT ["python", "safeentry_server.py"]
+ENTRYPOINT ["python", "-u", "safeentry_server.py"]
 
