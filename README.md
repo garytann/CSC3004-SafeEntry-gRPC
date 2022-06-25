@@ -27,7 +27,7 @@ docker compose down
 python safeentry_client.py
 ```
 ### Functions the clients are able to use
-* - Enter your NRIC and Name to begin the program
+* Enter your NRIC and Name to begin the program
 * 1) Check-in to location
 * 2) Check-out of location
 * 3) Group Check-in
@@ -35,13 +35,13 @@ python safeentry_client.py
 * 5) Get visit history
 
 ### Functions the admin are able to use
-* - Enter 'admin' as the NRIC
-* 0) Add infected location
+* Enter 'admin' as the NRIC
+* 1) Add infected location
 * 1) Check-in to location
 * 2) Check-out of location
 * 3) Group Check-in
 * 4) Group Check-out
-* 5) Get visit history
+* 6) Get visit history
 
 **To test**
 Just run the run_test.bat file
