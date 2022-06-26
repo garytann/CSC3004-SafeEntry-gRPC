@@ -43,5 +43,14 @@ python safeentry_client.py
 * 4) Group Check-out
 * 6) Get visit history
 
-### To test
+### Automated test (Windows)
+
+```
 Just run the run_test.bat file
+```
+
+### Automated Test (MAC)
+
+```
+bash run_test.sh
+```
