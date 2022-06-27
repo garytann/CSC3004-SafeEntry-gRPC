@@ -147,7 +147,7 @@ if __name__ == "__main__":
         nric = "S1234567A"
         name = "TEST1"
         loc = "Takashimaya"
-        count = 20
+        count = 40
 
         print("Test loop starting")
         for i in range(count):
